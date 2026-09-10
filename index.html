@@ -49,16 +49,15 @@
         <div class="info-content">
           <h1 class="name" title="Aryaman Mishra">Aryaman Mishra</h1>
 
-          <p class="title">Full Stack developer</p>
+          <p class="title">SEO Executive | Full Stack developer</p>
          
         </div>
 
 
 
-        <button class="info_more-btn" data-sidebar-btn>
+        <button class="info_more-btn" data-sidebar-btn aria-label="Show Contacts">
           <span>Show Contacts</span>
-
-          <ion-icon name="Aryaman Mishra"></ion-icon>
+          <ion-icon name="chevron-down"></ion-icon>
         </button>
 
       </div>
@@ -176,7 +175,11 @@
         <ul class="navbar-list">
 
           <li class="navbar-item">
-            <button class="navbar-link  active" data-nav-link>About</button>
+            <button class="navbar-link active" data-nav-link>About</button>
+          </li>
+
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link>Experience</button>
           </li>
 
           <li class="navbar-item">
@@ -224,6 +227,17 @@
             add personal touch to your product and make sure that is eye-catching and easy to use. .
           </p>
         </section>
+
+
+        <section class="resume-download">
+
+          <a href="./assets/files/Aryaman_CV.pdf" class="form-btn resume-download-btn" download="Aryaman_CV.pdf">
+            <ion-icon name="download-outline"></ion-icon>
+            <span>Download My Resume</span>
+          </a>
+
+        </section>
+
 
 
         <!--
@@ -511,10 +525,77 @@
 
 
       <!--
-        - #RESUME
+        - #EXPERIENCE
       -->
 
-      <article class="a" data-page="academics">
+      <article class="resume" data-page="experience">
+
+        <header>
+          <h2 class="h2 article-title">Experience</h2>
+        </header>
+
+        <section class="timeline">
+
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="briefcase-outline"></ion-icon>
+            </div>
+
+            <h3 class="h3">Work experience</h3>
+          </div>
+
+          <ol class="timeline-list">
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">SEO Executive</h4>
+
+              <span>Gliscolab, Mohali · July 2026 — Present</span>
+
+              <ul class="timeline-text timeline-text-list">
+                <li>
+                  Directed competitive research alongside keyword mapping across multiple client platforms, elevating search rankings and driving a 20% increase in organic search traffic.
+                </li>
+                <li>
+                  Executed targeted link-building initiatives to secure over 40 authoritative backlinks each month through business directories and relevant community platforms.
+                </li>
+                <li>
+                  Refined core web copy to align with user search intent, boosting search term positions by 15% during the initial quarter.
+                </li>
+              </ul>
+
+            </li>
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">Android Developer Intern (Virtual)</h4>
+
+              <span>AICTE · July 2025 — September 2025</span>
+
+              <ul class="timeline-text timeline-text-list">
+                <li>Completed a virtual Android development internship under AICTE (All India Council for Technical Education).</li>
+                <li>Developed Android application components using Java and Android Studio.</li>
+                <li>Worked on UI design, activity lifecycle, and basic app navigation.</li>
+                <li>Gained hands-on experience in mobile app development and debugging.</li>
+              </ul>
+
+            </li>
+
+          </ol>
+
+        </section>
+
+      </article>
+
+
+
+
+
+      <!--
+        - #ACADEMICS
+      -->
+
+      <article class="resume" data-page="academics">
 
         <header>
           <h2 class="h2 article-title">Academics</h2>

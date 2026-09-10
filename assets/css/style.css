@@ -155,7 +155,10 @@ input, textarea {
 
 html { font-family: var(--ff-poppins); }
 
-body { background: var(--smoky-black); }
+body {
+  background: var(--smoky-black);
+  color: var(--light-gray);
+}
 
 
 
@@ -166,6 +169,7 @@ body { background: var(--smoky-black); }
 \*-----------------------------------*/
 
 
+.sidebar,
 article {
   background: var(--eerie-black-2);
   border: 1px solid var(--jet);
@@ -316,7 +320,7 @@ main {
 
 .sidebar {
   margin-bottom: 15px;
-  max-height: 112px;
+  max-height: 130px;
   overflow: hidden;
   transition: var(--transition-2);
 }
@@ -336,6 +340,11 @@ main {
   border-radius: 20px;
 }
 
+.info-content {
+  min-width: 0;
+  padding-right: 7.25rem;
+}
+
 .info-content .name {
   color: var(--white-2);
   font-size: var(--fs-3);
@@ -350,22 +359,27 @@ main {
   font-size: var(--fs-8);
   font-weight: var(--fw-300);
   width: max-content;
+  max-width: 100%;
   padding: 3px 12px;
   border-radius: 8px;
 }
 
 .info_more-btn {
   position: absolute;
-  top: -15px;
-  right: -15px;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
   border-radius: 0 15px;
   font-size: 13px;
   color: var(--orange-yellow-crayola);
   background: var(--border-gradient-onyx);
-  padding: 10px;
+  padding: 8px 12px;
   box-shadow: var(--shadow-2);
   transition: var(--transition-1);
-  z-index: 1;
+  z-index: 10;
 }
 
 .info_more-btn::before {
@@ -384,7 +398,13 @@ main {
 .info_more-btn:hover::before,
 .info_more-btn:focus::before { background: var(--bg-gradient-yellow-2); }
 
-.info_more-btn span { display: none; }
+.info_more-btn span {
+  display: block;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.info_more-btn ion-icon { font-size: 16px; }
 
 .sidebar-info_more {
   opacity: 0;
@@ -827,6 +847,32 @@ main {
   color: var(--light-gray);
   font-weight: var(--fw-300);
   line-height: 1.6;
+}
+
+.timeline-text-list {
+  margin-top: 8px;
+  padding-left: 18px;
+}
+
+.timeline-text-list li {
+  list-style: disc;
+  margin-bottom: 8px;
+}
+
+.timeline-text-list li:last-child { margin-bottom: 0; }
+
+
+/**
+ * resume download
+ */
+
+.resume-download {
+  margin-bottom: 35px;
+}
+
+.resume-download-btn {
+  max-width: 280px;
+  text-decoration: none;
 }
 
 
@@ -1344,6 +1390,8 @@ textarea.form-input::-webkit-resizer { display: none; }
   .avatar-box { border-radius: 30px; }
 
   .avatar-box img { width: 120px; }
+
+  .info-content { padding-right: 0; }
 
   .info-content .name { margin-bottom: 15px; }
 
