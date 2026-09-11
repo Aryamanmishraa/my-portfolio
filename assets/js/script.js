@@ -303,3 +303,86 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
   });
 }
+
+
+// Position the "Show Contacts" button centered at the top of the viewport
+// only while the About section is visible on small screens.
+function positionContactBtnOverAbout() {
+  const btn = document.querySelector('.info_more-btn');
+  const about = document.querySelector('.about');
+  if (!btn || !about) return;
+
+  const MOBILE_MAX = 480;
+  let aboutObserver = null;
+  let mutationObservers = [];
+
+  function enableObserver() {
+    if (aboutObserver) return;
+
+    aboutObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // When About is visible on mobile, pin button to top-right of viewport
+          btn.style.position = 'fixed';
+          btn.style.top = '20px';
+          btn.style.right = '12px';
+          btn.style.left = 'auto';
+          btn.style.transform = 'none';
+          btn.style.zIndex = '9999';
+        } else {
+          // When About is not visible, revert to sidebar position
+          btn.style.position = '';
+          btn.style.top = '';
+          btn.style.left = '';
+          btn.style.right = '';
+          btn.style.transform = '';
+          btn.style.zIndex = '';
+        }
+      });
+    }, { threshold: 0.25 });
+
+    aboutObserver.observe(about);
+
+    // Observe page class changes (active page) so the observer can be re-applied
+    const pages = document.querySelectorAll('[data-page]');
+    pages.forEach(page => {
+      const mo = new MutationObserver(() => {
+        if (aboutObserver) {
+          aboutObserver.disconnect();
+          aboutObserver.observe(about);
+        }
+      });
+      mo.observe(page, { attributes: true, attributeFilter: ['class'] });
+      mutationObservers.push(mo);
+    });
+  }
+
+  function disableObserver() {
+    if (aboutObserver) {
+      aboutObserver.disconnect();
+      aboutObserver = null;
+    }
+    mutationObservers.forEach(mo => mo.disconnect());
+    mutationObservers = [];
+    // ensure styles are cleared
+    btn.style.position = '';
+    btn.style.top = '';
+    btn.style.left = '';
+    btn.style.transform = '';
+    btn.style.zIndex = '';
+  }
+
+  function checkResize() {
+    if (window.innerWidth <= MOBILE_MAX) {
+      enableObserver();
+    } else {
+      disableObserver();
+    }
+  }
+
+  checkResize();
+  window.addEventListener('resize', checkResize);
+}
+
+// Initialize after DOM ready
+document.addEventListener('DOMContentLoaded', positionContactBtnOverAbout);

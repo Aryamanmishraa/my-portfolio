@@ -406,13 +406,13 @@ main {
 \*-----------------------------------*/
 
 .sidebar {
-  margin-bottom: 15px;
-  max-height: 130px;
+  margin-bottom: 12px;
+  max-height: 110px;
   overflow: hidden;
   transition: var(--transition-2);
 }
 
-.sidebar.active { max-height: 405px; }
+.sidebar.active { max-height: 320px; }
 
 .sidebar-info {
   position: relative;
@@ -429,7 +429,7 @@ main {
 
 .info-content {
   min-width: 0;
-  padding-right: 7.25rem;
+  flex: 1;
 }
 
 .info-content .name {
@@ -445,28 +445,52 @@ main {
   background: var(--onyx);
   font-size: var(--fs-8);
   font-weight: var(--fw-300);
-  width: max-content;
+  width: fit-content;
   max-width: 100%;
   padding: 3px 12px;
   border-radius: 8px;
+  text-align: center;
+  line-height: 1.6;
 }
 
 .info_more-btn {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 12px;
+  right: 12px;
+  left: auto;
+  transform: none;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
-  border-radius: 0 15px;
+  border-radius: 8px;
   font-size: 13px;
   color: var(--orange-yellow-crayola);
   background: var(--border-gradient-onyx);
-  padding: 8px 12px;
+  padding: 6px 12px;
   box-shadow: var(--shadow-2);
   transition: var(--transition-1);
   z-index: 10;
+  white-space: nowrap;
+}
+
+/* Responsive adjustments: keep button at top-right and scale on small screens */
+@media (max-width: 480px) {
+  .info_more-btn {
+    top: 8px;
+    right: 8px;
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+  .info_more-btn span { font-size: 10px; }
+}
+
+@media (min-width: 1024px) {
+  .info_more-btn {
+    top: 14px;
+    right: 14px;
+    padding: 7px 14px;
+  }
 }
 
 .info_more-btn::before {
@@ -487,7 +511,7 @@ main {
 
 .info_more-btn span {
   display: block;
-  font-size: 12px;
+  font-size: 11px;
   white-space: nowrap;
 }
 
