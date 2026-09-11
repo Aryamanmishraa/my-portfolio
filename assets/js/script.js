@@ -136,7 +136,137 @@ for (let i = 0; i < formInputs.length; i++) {
 
 
 
-// page navigation variables
+// =============================================
+// SCROLL-REVEAL ANIMATIONS
+// =============================================
+
+/**
+ * Applies reveal classes to elements within a given page article.
+ * Sections get "reveal", list children get staggered delays.
+ */
+function applyRevealClasses(article) {
+  // Reveal sections (about-text, service, timeline, skill, projects, contact-form, mapbox)
+  const sections = article.querySelectorAll(
+    '.about-text, .service, .timeline, .skill, section.projects, .contact-form, .mapbox, .resume-download'
+  );
+  sections.forEach(function (section) {
+    if (!section.classList.contains('reveal')) {
+      section.classList.add('reveal');
+    }
+  });
+
+  // Reveal the article title with a left-slide
+  const titles = article.querySelectorAll('.article-title');
+  titles.forEach(function (title) {
+    if (!title.classList.contains('reveal-left')) {
+      title.classList.add('reveal-left');
+    }
+  });
+
+  // Stagger service items
+  const serviceItems = article.querySelectorAll('.service-item');
+  serviceItems.forEach(function (item, index) {
+    if (!item.classList.contains('reveal-scale')) {
+      item.classList.add('reveal-scale');
+    }
+    const staggerClass = 'stagger-' + Math.min(index + 1, 8);
+    if (!item.classList.contains(staggerClass)) {
+      item.classList.add(staggerClass);
+    }
+  });
+
+  // Stagger timeline items
+  const timelineItems = article.querySelectorAll('.timeline-item');
+  timelineItems.forEach(function (item, index) {
+    if (!item.classList.contains('reveal')) {
+      item.classList.add('reveal');
+    }
+    const staggerClass = 'stagger-' + Math.min(index + 1, 8);
+    if (!item.classList.contains(staggerClass)) {
+      item.classList.add(staggerClass);
+    }
+  });
+
+  // Stagger skill items
+  const skillItems = article.querySelectorAll('.skills-item');
+  skillItems.forEach(function (item, index) {
+    if (!item.classList.contains('reveal')) {
+      item.classList.add('reveal');
+    }
+    const staggerClass = 'stagger-' + Math.min(index + 1, 8);
+    if (!item.classList.contains(staggerClass)) {
+      item.classList.add(staggerClass);
+    }
+  });
+
+  // Stagger project items
+  const projectItems = article.querySelectorAll('.project-item');
+  projectItems.forEach(function (item, index) {
+    if (!item.classList.contains('reveal-scale')) {
+      item.classList.add('reveal-scale');
+    }
+    const staggerClass = 'stagger-' + Math.min(index + 1, 8);
+    if (!item.classList.contains(staggerClass)) {
+      item.classList.add(staggerClass);
+    }
+  });
+}
+
+/**
+ * Resets all reveal elements inside an article so they can animate again
+ * when the page is visited again.
+ */
+function resetReveals(article) {
+  const revealEls = article.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+  revealEls.forEach(function (el) {
+    el.classList.remove('visible');
+  });
+}
+
+/**
+ * IntersectionObserver to trigger "visible" class when elements scroll into view.
+ */
+const revealObserver = new IntersectionObserver(function (entries) {
+  entries.forEach(function (entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, {
+  threshold: 0.1,
+  rootMargin: '0px 0px -40px 0px'
+});
+
+/**
+ * Observe all reveal elements in a given article.
+ */
+function observeReveals(article) {
+  const revealEls = article.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+  revealEls.forEach(function (el) {
+    revealObserver.observe(el);
+  });
+}
+
+// Apply reveal classes to ALL articles on load
+const allArticles = document.querySelectorAll('[data-page]');
+allArticles.forEach(function (article) {
+  applyRevealClasses(article);
+});
+
+// Observe reveals on the currently active article
+const activeArticle = document.querySelector('[data-page].active');
+if (activeArticle) {
+  // Small delay so the page slide-in animation plays first
+  setTimeout(function () {
+    observeReveals(activeArticle);
+  }, 100);
+}
+
+
+
+// =============================================
+// PAGE NAVIGATION (with animations)
+// =============================================
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
 const pages = document.querySelectorAll("[data-page]");
 
@@ -150,8 +280,16 @@ for (let i = 0; i < navigationLinks.length; i++) {
       if (selectedPage === pages[j].dataset.page) {
         pages[j].classList.add("active");
         window.scrollTo(0, 0);
+
+        // Reset and re-observe reveals so they animate in fresh
+        resetReveals(pages[j]);
+        setTimeout(function () {
+          observeReveals(pages[j]);
+        }, 150); // slight delay to let the page slide-in start
+
       } else {
         pages[j].classList.remove("active");
+        resetReveals(pages[j]);
       }
     }
 
